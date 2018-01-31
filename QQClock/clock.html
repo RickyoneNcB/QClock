@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>clock</title>
+    <script src="./html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.js"></script>
+    <!-- 使用的是原生JS制作 -->
+    <style>
+        body {
+            background-color: coral;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* 一些时钟的样式 */
+
+        .clock {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: antiquewhite;
+            margin: 100px auto 0px auto;
+            position: relative;
+            border: 20px solid cornsilk;
+
+        }
+
+        .center {
+            background-color: #000;
+            position: absolute;
+            left: calc(50% - 10px);
+            top: calc(50% - 10px);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            z-index: 20;
+        }
+
+        .hourHand {
+            width: 10px;
+            height: 75px;
+            background-color: #000;
+            transform-origin: bottom center;
+            border-radius: 4px;
+            position: absolute;
+            top: 75px;
+            left: 145px;
+            z-index: 10;
+            transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+            transform: rotate(360deg);
+        }
+
+        .minuteHand {
+            width: 5px;
+            height: 120px;
+            background-color: #000;
+            transform-origin: bottom center;
+            border-radius: 4px;
+            position: absolute;
+            top: 30px;
+            left: 147px;
+            z-index: 9;
+            /* 旋转样式在 cubic-bezier 函数中定义自己的值。可能的值是 0 至 1 之间的数值。 */
+            transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+            transform: rotate(90deg);
+
+        }
+
+        .secondHand {
+            width: 2px;
+            height: 120px;
+            background-color: red;
+            transform-origin: bottom center;
+            border-radius: 4px;
+            position: absolute;
+            top: 30px;
+            left: 149px;
+            transition: all 0.06s;
+            transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+            z-index: 8;
+            transform: rotate(360deg);
+
+        }
+
+        .time {
+            position: absolute;
+            top: 45%;
+            left: 10%;
+            border: 1px solid #fff8dc;
+            background-color: #fff;
+            padding: 5px;
+            display: block;
+            box-shadow: inset 0px 2px 5px rgba(0, 0, 0, .4);
+            border-radius: 5px;
+            min-width: 70px;
+            height: 15px;
+
+        }
+
+        .time small {
+            color: red;
+            transition: all 0.05s;
+            transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+        }
+
+        .clock ul {
+            list-style: none;
+            padding: 0;
+
+        }
+
+        .clock ul li {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            font-size: 10px;
+            color: red;
+        }
+
+        .clock ul li:nth-child(1) {
+            right: 22%;
+            top: 6.5%;
+        }
+
+        .clock ul li:nth-child(2) {
+            right: 6%;
+            top: 25%;
+        }
+
+        .clock ul li:nth-child(3) {
+            right: 1%;
+            top: calc(50% - 10px);
+            color: #000;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .clock ul li:nth-child(4) {
+            right: 6%;
+            top: 69%;
+        }
+
+        .clock ul li:nth-child(5) {
+            right: 22%;
+            top: 84%;
+        }
+
+        .clock ul li:nth-child(6) {
+            right: calc(50% - 10px);
+            /* calc参数有四则运算法(加减乘除) */
+            top: calc(99% - 20px);
+            color: #000;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .clock ul li:nth-child(7) {
+            left: 22%;
+            top: 84%;
+        }
+
+        .clock ul li:nth-child(8) {
+            left: 6%;
+            top: 69%;
+        }
+
+        .clock ul li:nth-child(9) {
+            left: 1%;
+            top: calc(50% - 10px);
+            color: #000;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .clock ul li:nth-child(10) {
+            left: 6%;
+            top: 25%;
+        }
+
+        .clock ul li:nth-child(11) {
+            left: 22%;
+            top: 6.5%;
+        }
+
+        .clock ul li:nth-child(12) {
+            right: calc(50% - 10px);
+            top: 1%;
+            color: #000;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clock">
+        <div class="hourHand"></div>
+        <div class="minuteHand"></div>
+        <div class="secondHand"></div>
+        <div class="center"></div>
+        <div class="time"></div>
+        <ul>
+            <li>
+                <span>1</span>
+            </li>
+            <li>
+                <span>2</span>
+            </li>
+            <li>
+                <span>3</span>
+            </li>
+            <li>
+                <span>4</span>
+            </li>
+            <li>
+                <span>5</span>
+            </li>
+            <li>
+                <span>6</span>
+            </li>
+            <li>
+                <span>7</span>
+            </li>
+            <li>
+                <span>8</span>
+            </li>
+            <li>
+                <span>9</span>
+            </li>
+            <li>
+                <span>10</span>
+            </li>
+            <li>
+                <span>11</span>
+            </li>
+            <li>
+                <span>12</span>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>
+<script>
+    window.onload = function () {
+        // 声明变量获取时针,分针,秒针;
+        // 进行开启时间事件
+
+        const hourHand = document.querySelector('.hourHand');
+        const minuteHand = document.querySelector('.minuteHand');
+        const secondHand = document.querySelector('.secondHand');
+        const time = document.querySelector('.time');
+        const clock = document.querySelector('.clock');
+
+        function setDate() {
+            // 创建获取时间事件
+            const today = new Date();
+            // 1.var定义的变量可以修改，如果不初始化会输出undefined，不会报错。
+            // 2.const定义的变量不可以修改，而且必须初始化。初始化就是需要赋值给变量
+            // 3.let是块级作用域，函数内部使用let定义后，对函数外部无影响。
+            const second = today.getSeconds();
+            // 获取系统时间
+            // getSeconds返回的是秒
+            const secondDeg = ((second / 60) * 360) + 360;
+            secondHand.style.transform = `rotate(${secondDeg}deg)`;
+
+            const minute = today.getMinutes();
+            // getMinutes返回的是分钟
+            const minuteDeg = ((minute / 60) * 360);
+            minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+
+            const hour = today.getHours();
+            // getHours返回的是小时
+            const hourDeg = ((hour / 12) * 360);
+            hourHand.style.transform = `rotate(${hourDeg}deg)`;
+            // 这里是利用js动态创建元素,拼接时分秒
+            time.innerHTML = '<span>' + '<strong>' + hour + '</strong>' + ' : ' + minute + ' : ' + '<small>' + second + '</small>' + '</span>';
+        }
+        // 这里开启时间计时, 1000毫秒
+        setInterval(setDate, 1000);
+
+    }
+</script>
